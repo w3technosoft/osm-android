@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:background="@drawable/background">
+
+<ImageView
+    android:layout_width="fill_parent"
+    android:layout_height="30dip"
+    android:layout_margin="20dip"
+    android:src="@drawable/osm_android" />
+
+
+
+ <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    >
+    <ImageButton android:id="@+id/map_button"
+             android:layout_width="wrap_content" 
+             android:layout_height="wrap_content"
+             android:paddingLeft="20dip"              
+             android:paddingRight="20dip"
+             android:layout_margin="20dip"
+             android:src="@drawable/map_button">
+    </ImageButton>
+
+    <ImageButton android:id="@+id/search_button"
+             android:layout_width="wrap_content" 
+             android:layout_height="wrap_content" 
+             android:src="@drawable/search_button"                   
+             android:paddingLeft="20dip"              
+             android:paddingRight="20dip"
+             android:layout_margin="20dip"
+             >
+    </ImageButton>
+</LinearLayout>
+ 
+<ImageButton android:id="@+id/settings_button"
+             android:layout_width="wrap_content" 
+             android:layout_height="wrap_content" 
+             android:src="@drawable/settings_button"
+             android:layout_gravity="center_horizontal"
+             >
+</ImageButton>
+
+</LinearLayout>
