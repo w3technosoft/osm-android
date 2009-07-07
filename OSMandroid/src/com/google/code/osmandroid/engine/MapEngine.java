@@ -52,26 +52,25 @@ public class MapEngine {
 		int zoomLimit   		 		= (zoom + 1) * 1000;
 		StringBuffer nameIdsBuffer 		= new StringBuffer();
 		
-		String[]      tiles 			= this.map.tileNames;
-		BoundingBox[] boxes 			= this.map.tileBBoxes;
+		ArrayList<String>      tiles 	= this.map.tileNames;
+		ArrayList<BoundingBox> boxes 	= this.map.tileBBoxes;
 		Cache tileCacheLocal			= this.tileCache;
 		Cache nameCacheLocal			= this.nameCache;
 		ArrayList<MapItem> mapRectItems = mapRect.items;
 		String tileName;
 		
-		int count = tiles.length;
+		int count = tiles.size();
 		for (int tileIndex = 0; tileIndex < count; tileIndex++) {
 			
-			int tileMaxZoom = tiles[tileIndex].length()+1;
-			if (tiles[tileIndex].equals("index")) 
+			tileName = tiles.get(tileIndex);
+			int tileMaxZoom = tileName.length()+1;
+			if (tileName.equals("index")) 
 				tileMaxZoom = 1;
 			
 			if ( tileMaxZoom > zoom )
 				continue;
 			
-			tileName = tiles[tileIndex];
-			
-			if (area.overlaps(boxes[tileIndex])) {
+			if (area.overlaps(boxes.get(tileIndex))) {
 				
 				MapTile mapTile = (MapTile)tileCacheLocal.getElement(tileName);
 				

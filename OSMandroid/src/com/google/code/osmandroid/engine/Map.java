@@ -18,8 +18,8 @@ public class Map extends BoundingBox {
 	public String path;
 	
 	//FIXME: temporary solution
-	public String[] 	 tileNames;
-	public BoundingBox[] tileBBoxes; 
+	public ArrayList<String> 	  tileNames;
+	public ArrayList<BoundingBox> tileBBoxes; 
 	
 	public Map(String name, String path) {
 		
@@ -42,21 +42,24 @@ public class Map extends BoundingBox {
         
         int numFiles       = listOfFiles.length;
        
-        this.tileNames  = new String[numFiles];
-        this.tileBBoxes = new BoundingBox[numFiles];
-        
-        String[]      names = this.tileNames;
-        BoundingBox[] boxes = this.tileBBoxes;
-        
-        for (int i = 0; i < numFiles; i++) {
-
-        	if (!listOfFiles[i].isFile()) 
-            	continue;
-            
-        	names[i] = listOfFiles[i].getName();
-        	boxes[i] = BoundingBox.getBoxFromTileName(names[i]);
-        }
-		
+        this.tileNames  = new ArrayList<String>(numFiles);
+        this.tileBBoxes = new ArrayList<BoundingBox>(numFiles);
+                
+        for (File file : listOfFiles) {
+        	
+        	if (!file.isFile()) {
+        		continue;
+        	}
+        	
+        	String tileName = file.getName();
+        	
+        	if (!tileName.equals("index") && !tileName.matches("[a-d]+")) {
+        		continue;
+        	}
+        	
+        	tileNames.add(tileName);
+        	tileBBoxes.add(BoundingBox.getBoxFromTileName(tileName));
+        }		
 	}
 
 	public void setBoundingBox(int minX, int maxX, int minY, int maxY) {
