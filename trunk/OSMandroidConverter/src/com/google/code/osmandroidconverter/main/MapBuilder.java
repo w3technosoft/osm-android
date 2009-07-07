@@ -84,6 +84,11 @@ public class MapBuilder {
 				
 			MapItem item = element.convert();
 			
+			String name = item.name;
+			if (name != null && MapBuilder.nameRecords != null) {
+				item.nameId = MapBuilder.createNameRecord(item, name);
+			}	
+			
 			String tileName = this.matchTile(item);
 			
 			Tile tile = (Tile)tileMap.get(tileName);

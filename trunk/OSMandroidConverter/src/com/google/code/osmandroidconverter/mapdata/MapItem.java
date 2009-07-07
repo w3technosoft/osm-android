@@ -4,14 +4,15 @@ package com.google.code.osmandroidconverter.mapdata;
 
 public class MapItem extends BoundingBox {
 
-	public long  id;		  // id of the item
-	public int   nameId; 	  // id of the item
-	public int   type;		  // it's type (street, park, building, etc)
-	public int	 flags; 	  // flags
-	public int   numNodes;    // number of nodes
-	public int[] nodes;		  // nodes
-	public int   numSegments; // number of segments
-	public int[] segments;    //segment indexes
+	public long   id;		  // id of the item
+	public int    nameId; 	  // id of the item
+	public String name; 	  // temporary name for this item
+	public int    type;		  // it's type (street, park, building, etc)
+	public int	  flags; 	  // flags
+	public int    numNodes;    // number of nodes
+	public int[]  nodes;		  // nodes
+	public int    numSegments; // number of segments
+	public int[]  segments;    //segment indexes
 	
 	public int getLength() {
 	
