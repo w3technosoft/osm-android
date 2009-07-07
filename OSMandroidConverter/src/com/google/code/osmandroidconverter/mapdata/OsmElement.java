@@ -260,12 +260,9 @@ public class OsmElement {
 
 			}
 		}
-
 		
-		String name = this.getAttribute("name");
-		if (name != null && MapBuilder.nameRecords != null) {
-			item.nameId = MapBuilder.createNameRecord(item, name);
-		}	
+		item.name = this.getAttribute("name");
+		
 		
 		return item;
 	}
