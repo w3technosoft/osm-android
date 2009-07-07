@@ -65,21 +65,6 @@ public class LabelsTexture {
         gl.glGenTextures(1, textures, 0);
         
         this.textureID = textures[0];
-        gl.glBindTexture(GL10.GL_TEXTURE_2D, textureID);
-
-        // Use Nearest for performance.
-        gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER,
-                GL10.GL_NEAREST);
-        gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER,
-                GL10.GL_NEAREST);
-
-        gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_S,
-                GL10.GL_CLAMP_TO_EDGE);
-        gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_T,
-                GL10.GL_CLAMP_TO_EDGE);
-
-        gl.glTexEnvf(GL10.GL_TEXTURE_ENV, GL10.GL_TEXTURE_ENV_MODE,
-               GL10.GL_REPLACE);
         
     }
 
@@ -114,15 +99,20 @@ public class LabelsTexture {
     	
 
         gl.glBindTexture(GL10.GL_TEXTURE_2D, textureID);
-        GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, bitmap, 0);
+        GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, this.bitmap, 0);
         
-              
-        gl.glShadeModel(GL10.GL_FLAT);
+        
+        gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_NEAREST);
+        gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_NEAREST);
+        
+        gl.glTexEnvf(GL10.GL_TEXTURE_ENV, GL10.GL_TEXTURE_ENV_MODE, GL10.GL_REPLACE);
+        
+
+        gl.glDisable(GL10.GL_DEPTH_TEST);
         gl.glEnable(GL10.GL_BLEND);
-        //gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
-        gl.glBlendFunc(GL10.GL_ONE, GL10.GL_ONE_MINUS_SRC_ALPHA);
+        gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
         gl.glColor4x(0x10000, 0x10000, 0x10000, 0x10000);   
-        
+		gl.glEnable(GL10.GL_TEXTURE_2D);        
         
         int w = this.width;
         int h = this.height;
@@ -132,9 +122,7 @@ public class LabelsTexture {
         crop[1] = h;
         crop[2] = w;
         crop[3] = -h;
-        
-        gl.glDisable(GL10.GL_DEPTH_TEST);
-		gl.glEnable(GL10.GL_TEXTURE_2D);
+
         ((GL11)gl).glTexParameteriv(GL10.GL_TEXTURE_2D,
                 GL11Ext.GL_TEXTURE_CROP_RECT_OES, crop, 0);
         ((GL11Ext)gl).glDrawTexiOES((int) 0, (int) 0, 0,
@@ -142,6 +130,7 @@ public class LabelsTexture {
         
         gl.glDisable(GL10.GL_BLEND);
         gl.glDisable(GL10.GL_TEXTURE_2D);
+        gl.glEnable(GL10.GL_DEPTH_TEST);
     }
 
     public void addItem(MapItem item){
@@ -151,10 +140,16 @@ public class LabelsTexture {
     
     public void drawLabels(MapRect mapRect, int zoomLevel) {
     	
+    	
     	MapItem item;
+    	int labelCount = 0;
     	
     	while ((item = this.prioQueue.poll()) != null) {
-    		   		
+    		
+    		if(++labelCount == MAX_LABELS_PER_SCENE) {
+    			break;
+    		}
+    		
     		setPaintProperties(item.type, zoomLevel);
     		
     		if (item.getShape() == MapItem.SHAPE_LINE) {
