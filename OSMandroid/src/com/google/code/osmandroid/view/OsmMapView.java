@@ -504,7 +504,7 @@ public class OsmMapView extends GLSurfaceView{
 		
 		MapRect currMapRectLocal 			 = this.currMapRect;
 		int zoomLevelLocal  	 			 = this.currZoomLevel;
-		ArrayList<MapItem> currMapItemsLocal = this.currMapRect.items;
+		ArrayList<MapItem> currMapItemsLocal = this.currMapRect.getMapItems();
 		
 		if (currMapRectLocal.overlaps(this.cursor)) {
 			

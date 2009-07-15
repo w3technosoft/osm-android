@@ -11,8 +11,8 @@ import com.google.code.osmandroid.mapdata.MapItem;
 
 public class MapRect extends BoundingBox {
 
-	public ArrayList<MapItem> items;
-	public static final int INITIAL_SIZE = 256;
+	private ArrayList<MapItem> items;
+	private static final int INITIAL_SIZE = 256;
 	
 	public MapRect() {
 		
@@ -23,6 +23,11 @@ public class MapRect extends BoundingBox {
 		
 		super(area);
 		this.items = new ArrayList<MapItem>(INITIAL_SIZE);
+	}
+	
+	public final ArrayList<MapItem> getMapItems() {
+		
+		return this.items;
 	}
 	
 }

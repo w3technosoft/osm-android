@@ -56,7 +56,7 @@ public class MapEngine {
 		ArrayList<BoundingBox> boxes 	= this.map.tileBBoxes;
 		Cache tileCacheLocal			= this.tileCache;
 		Cache nameCacheLocal			= this.nameCache;
-		ArrayList<MapItem> mapRectItems = mapRect.items;
+		ArrayList<MapItem> mapRectItems = mapRect.getMapItems();
 		String tileName;
 		
 		int count = tiles.size();

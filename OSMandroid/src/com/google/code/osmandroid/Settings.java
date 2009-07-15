@@ -35,42 +35,42 @@ public class Settings extends Activity implements RadioGroup.OnCheckedChangeList
 		super.onCreate(savedInstanceState);	
 		setContentView(R.layout.settings);
 		
-		routeTypeRadioGroup = (RadioGroup)  findViewById(R.id.routeTypeMenu);
-		routeFastestButton  = (RadioButton) findViewById(R.id.routeTypeFastest);
-		routeShortestButton = (RadioButton) findViewById(R.id.routeTypeShortest);
-		updateDbButton      = (Button)      findViewById(R.id.updateNameDatabase);
+		this.routeTypeRadioGroup = (RadioGroup)  findViewById(R.id.routeTypeMenu);
+		this.routeFastestButton  = (RadioButton) findViewById(R.id.routeTypeFastest);
+		this.routeShortestButton = (RadioButton) findViewById(R.id.routeTypeShortest);
+		this.updateDbButton      = (Button)      findViewById(R.id.updateNameDatabase);
 		
-		appPreferences 		= PreferenceManager.getDefaultSharedPreferences(this);
+		this.appPreferences 		= PreferenceManager.getDefaultSharedPreferences(this);
 		
 		
-		updateDbButton.setOnClickListener(new View.OnClickListener(){
+		this.updateDbButton.setOnClickListener(new View.OnClickListener(){
 			public void onClick(View v) {
 				updateNameDatabase(DB_FILE);
 			}
 		});
 		
-		int routeType = appPreferences.getInt("route_type", Route.ROUTE_FASTEST);
+		int routeType = this.appPreferences.getInt("route_type", Route.ROUTE_FASTEST);
 		
 		if (routeType == Route.ROUTE_FASTEST) {
 			
-			routeFastestButton.setChecked(true);
+			this.routeFastestButton.setChecked(true);
 		}
 		else if (routeType == Route.ROUTE_SHORTEST) {
 			
-			routeShortestButton.setChecked(true);		
+			this.routeShortestButton.setChecked(true);		
 		} 
 		else {
 			
-			routeFastestButton.setChecked(false);
-			routeShortestButton.setChecked(false);
+			this.routeFastestButton.setChecked(false);
+			this.routeShortestButton.setChecked(false);
 		}
 		
-		routeTypeRadioGroup.setOnCheckedChangeListener(this);
+		this.routeTypeRadioGroup.setOnCheckedChangeListener(this);
 	}
 	
     public void onCheckedChanged(RadioGroup group, int checkedId) {
     	
-    	SharedPreferences.Editor editor = appPreferences.edit();
+    	SharedPreferences.Editor editor = this.appPreferences.edit();
     	
     	if (checkedId == R.id.routeTypeFastest) {
     		

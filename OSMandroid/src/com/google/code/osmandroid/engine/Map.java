@@ -28,12 +28,6 @@ public class Map extends BoundingBox {
 		this.name = name;
 		this.path = path;
 		
-		init();
-	}
-	
-
-	private void init() {
-		
 		File folder        = new File(this.path);
         File[] listOfFiles = folder.listFiles();
         
@@ -57,9 +51,9 @@ public class Map extends BoundingBox {
         		continue;
         	}
         	
-        	tileNames.add(tileName);
-        	tileBBoxes.add(BoundingBox.getBoxFromTileName(tileName));
-        }		
+        	this.tileNames.add(tileName);
+        	this.tileBBoxes.add(BoundingBox.getBoxFromTileName(tileName));
+        }
 	}
 
 	public void setBoundingBox(int minX, int maxX, int minY, int maxY) {

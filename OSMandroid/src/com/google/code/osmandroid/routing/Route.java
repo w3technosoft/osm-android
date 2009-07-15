@@ -232,7 +232,7 @@ public class Route {
 	
 	public void addToGraph(MapRect mapRect) {
 		
-		ArrayList<MapItem> items = mapRect.items;
+		ArrayList<MapItem> items = mapRect.getMapItems();
 		DirectedGraph graph      = this.osmGraph;
 		
 		for (MapItem item : items) {
@@ -569,7 +569,7 @@ public class Route {
 
 		RoutePoint rp = new RoutePoint();
 		
-		ArrayList<MapItem> items = mapRect.items;
+		ArrayList<MapItem> items = mapRect.getMapItems();
 		
 		float    minDistance = Float.MAX_VALUE;
 		MapItem  minItem     = null;
