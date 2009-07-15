@@ -57,22 +57,22 @@ public class SearchResults extends ListActivity {
 	        	
 	        	if (rowCount == 0) {
 	        		
-	        		nameList    = new String[1];
-	        		nameList[0] = "No results found";
+	        		this.nameList    = new String[1];
+	        		this.nameList[0] = "No results found";
 	        	}
 	        	else {
 	        		
-		            nameList = new String[rowCount];
-		            latList  = new int[rowCount];
-		            lonList  = new int[rowCount];
+		            this.nameList = new String[rowCount];
+		            this.latList  = new int[rowCount];
+		            this.lonList  = new int[rowCount];
 	
 		            int i = 0;
 		            c.moveToFirst();
 		            do {
 		            	
-		            	nameList[i] = c.getString(0);
-		            	lonList[i]  = c.getInt(1);
-		            	latList[i]  = c.getInt(2);
+		            	this.nameList[i] = c.getString(0);
+		            	this.lonList[i]  = c.getInt(1);
+		            	this.latList[i]  = c.getInt(2);
 		            	i++;
 		            	
 		            } while (c.moveToNext() && !c.isAfterLast());            	
@@ -91,8 +91,8 @@ public class SearchResults extends ListActivity {
         
         }
         else{
-    		nameList    = new String[1];
-    		nameList[0] = "No results found";
+    		this.nameList    = new String[1];
+    		this.nameList[0] = "No results found";
         }
         
         setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nameList));
@@ -101,9 +101,14 @@ public class SearchResults extends ListActivity {
 	
     public void onListItemClick(ListView parent, View v,int position, long id) {
     	
+    	if (this.lonList == null || this.latList == null) {
+    		
+    		return;
+    	}
+    	
     	Intent intent = new Intent("com.google.code.osmandroid.PLAN_ON_MAP");
-    	intent.putExtra("centerX", lonList[position]);
-    	intent.putExtra("centerY", latList[position]);
+    	intent.putExtra("centerX", this.lonList[position]);
+    	intent.putExtra("centerY", this.latList[position]);
     	intent.putExtra("zoom", 15);
     	
     	startActivity(intent);

@@ -104,7 +104,7 @@ public class OsmMapRenderer implements GLSurfaceView.Renderer {
     	
     	MapRect mapRectLocal 			 = this.mapRect;
     	int zoomLevelLocal				 = this.zoomLevel;
-    	ArrayList<MapItem> mapItemsLocal = mapRectLocal.items;
+    	ArrayList<MapItem> mapItemsLocal = mapRectLocal.getMapItems();
     	boolean renderLabelsLocal		 = this.renderLabels;
     	
     	int   itemNumNodesLocal;
