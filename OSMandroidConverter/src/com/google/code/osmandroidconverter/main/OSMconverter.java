@@ -5,7 +5,7 @@ import org.apache.log4j.BasicConfigurator;
 
 public class OSMconverter {
 
-	private static final String sourceFile  = "osmdata/galati.osm";
+	private static final String sourceFile  = "osmdata/map.osm";
 	private static final String tilesDir    = "osm_android_maps";
 	private static final String namesFile	= "osm_names/names.txt";
 	
