@@ -7,10 +7,10 @@ public class BoundingBox {
 	public int maxX;
 	public int maxY;
 
-	public static final int WORLD_MIN_X = -1310720000;
-	public static final int WORLD_MIN_Y = -1310720000;
-	public static final int WORLD_MAX_X = 1310720000;
-	public static final int WORLD_MAX_Y = 1310720000;
+	public static final int WORLD_MIN_X = -40000000;
+	public static final int WORLD_MIN_Y = -40000000;
+	public static final int WORLD_MAX_X = 40000000;
+	public static final int WORLD_MAX_Y = 40000000;
 	
 	public BoundingBox() {
 		

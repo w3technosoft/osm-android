@@ -1,9 +1,7 @@
 package com.google.code.osmandroidconverter.mapdata;
 
-public class City {
+public class City extends Coordinates{
 	
-	public int 	  x;
-	public int 	  y;
 	public String type;
 	
 	public City() {
@@ -11,8 +9,8 @@ public class City {
 	}
 	
 	public City(int x, int y, String type) {
-		this.x 	  = x;
-		this.y 	  = y;
+		super.x  = x;
+		super.y  = y;
 		this.type = type;
 	}
 }
