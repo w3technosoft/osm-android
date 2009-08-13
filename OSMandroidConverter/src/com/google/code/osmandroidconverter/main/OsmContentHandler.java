@@ -45,10 +45,13 @@ public class OsmContentHandler implements ContentHandler {
 	public void startNode(Attributes atts) {
 
 		long  id  = Long.parseLong(atts.getValue("id"));
-		double lat = Double.parseDouble(atts.getValue("lat"));
-		double lon = Double.parseDouble(atts.getValue("lon"));
-			
-		this.currNode = new OsmNode(id, (int)Mercator.mercX(lon), (int)Mercator.mercY(lat));
+		float lat = Float.parseFloat(atts.getValue("lat"));
+		float lon = Float.parseFloat(atts.getValue("lon"));
+		
+		int mercX = (int)((Mercator.mercX(lon)/1000)*(1<<16));
+		int mercY = (int)((Mercator.mercY(lat)/1000)*(1<<16));
+		
+		this.currNode = new OsmNode(id, mercX, mercY);
 	}
 	
 	public void endNode() {

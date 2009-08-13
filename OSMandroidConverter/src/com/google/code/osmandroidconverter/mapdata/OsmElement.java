@@ -8,9 +8,9 @@ import java.util.List;
 
 import com.google.code.osmandroidconverter.main.MapBuilder;
 import com.google.code.osmandroidconverter.main.NameRecord;
+import com.google.code.osmandroidconverter.main.Point;
+import com.google.code.osmandroidconverter.main.Polygon;
 import com.google.code.osmandroidconverter.main.WayType;
-import com.google.code.osmandroidconverter.polygons.Point;
-import com.google.code.osmandroidconverter.polygons.PolygonShape;
 
 public class OsmElement {
 	
@@ -179,6 +179,7 @@ public class OsmElement {
 		  else {
 			   num = numNodes;
 		  }
+
 		  Point[] vertices = new Point[num];
 		   
 		  for(int j = 0; j < num; j++) {	
@@ -186,24 +187,19 @@ public class OsmElement {
 			OsmNode nd  = (OsmNode)MapBuilder.nodeMap.get(this.nodeRefs.get(j));
 			vertices[j] = new Point(nd.x, nd.y);				
 		  }
-		   
-		  PolygonShape cutPolygon = new PolygonShape(vertices);
-		  cutPolygon.CutEar();
-		   
-		  item.numNodes = cutPolygon.NumberOfPolygons() * 3; 
-		  item.nodes = new int[item.numNodes * 2];
-		  int c = 0;	
 		  
-		  for (int polyIdx=0; polyIdx < cutPolygon.NumberOfPolygons(); polyIdx++) {
-			   
-			  int nPoints=cutPolygon.Polygons(polyIdx).length;
-			  
-			  for (int pointPolyIdx=0; pointPolyIdx<nPoints; pointPolyIdx++) {
-				  
-				  item.nodes[c]   = (int)cutPolygon.Polygons(polyIdx)[pointPolyIdx].getX(); 
-				  item.nodes[c+1] = (int)cutPolygon.Polygons(polyIdx)[pointPolyIdx].getY();
-				  c = c +2;
-			  }
+		  Polygon poly                = new Polygon(vertices);
+		  LinkedList<Point> triangles = poly.triangulate();
+		  
+		  item.numNodes = triangles.size(); 
+		  item.nodes    = new int[item.numNodes * 2];
+		  
+		  int c = 0;
+		  for (int i = 0; i < triangles.size(); i++) {
+				
+				item.nodes[c]   = (int)triangles.get(i).x;
+				item.nodes[c+1] = (int)triangles.get(i).y;
+				c+=2;
 		  }
 		  
 		  item.numSegments = 1;

@@ -23,8 +23,6 @@ import com.google.code.osmandroidconverter.mapdata.MapItem;
 import com.google.code.osmandroidconverter.mapdata.OsmElement;
 import com.google.code.osmandroidconverter.mapdata.OsmNode;
 import com.google.code.osmandroidconverter.mapdata.Tile;
-import com.google.code.osmandroidconverter.polygons.Point;
-import com.google.code.osmandroidconverter.polygons.PolygonShape;
 
 
 public class MapBuilder {
@@ -237,11 +235,11 @@ public class MapBuilder {
 				   vertices[i] = new Point(item.nodes[i*2], item.nodes[i*2+1]);
 			   }
 
-			   PolygonShape polygon = new PolygonShape(vertices);
+			   Polygon polygon = new Polygon(vertices);
 			   Point p = polygon.findCentroid();
 			   
-			   centerX = (int)(p.getX());
-			   centerY = (int)(p.getY());
+			   centerX = (int)(p.x);
+			   centerY = (int)(p.y);
 			   
 		}
 		else {
@@ -452,13 +450,13 @@ public class MapBuilder {
 				data_out.writeInt(item.nameId);
 				data_out.writeInt(item.type);
 				data_out.writeInt(item.flags);
-				data_out.writeInt(mercToFixedPoint(item.minX));
-				data_out.writeInt(mercToFixedPoint(item.maxX));
-				data_out.writeInt(mercToFixedPoint(item.minY));
-				data_out.writeInt(mercToFixedPoint(item.maxY));
+				data_out.writeInt(item.minX);
+				data_out.writeInt(item.maxX);
+				data_out.writeInt(item.minY);
+				data_out.writeInt(item.maxY);
 				data_out.writeInt(item.numNodes);
 				for (int i = 0; i < item.nodes.length; i++) {
-					data_out.writeInt(mercToFixedPoint(item.nodes[i]));
+					data_out.writeInt(item.nodes[i]);
 				}
 				
 				data_out.writeInt(item.numSegments);
@@ -473,11 +471,6 @@ public class MapBuilder {
 			file_output.close ();	
 
 		}
-	}
-	
-	public int mercToFixedPoint(int n) {
-		
-		return (int)(((double)n/1000) * 65536);
 	}
 	
 	public void writeNameRecords(String path) throws IOException {
