@@ -177,12 +177,18 @@ public class OsmMapView extends GLSurfaceView{
 		this.noRoute.setPositiveButton("OK", null);
 		this.noRoute.setIcon(0);
 		
-		
+		/*
 		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.OsmMapView);
-		int centerX = a.getInt(R.styleable.OsmMapView_centerX, 204674492); 
-    	int centerY = a.getInt(R.styleable.OsmMapView_centerY, 370908198);  
+		int centerX = a.getInt(R.styleable.OsmMapView_centerX, 204473755); 
+    	int centerY = a.getInt(R.styleable.OsmMapView_centerY, 370953696);
     	int zoom    = a.getInt(R.styleable.OsmMapView_zoom, 15);
+		 */
 
+    	BoundingBox box = mapEngine.getMapArea();
+    	int centerX = (box.minX + box.maxX)/2;
+    	int centerY = (box.minY + box.maxY)/2;
+    	int zoom = 15;
+    	
     	setMapArea(new BoundingBox(centerX - 53333, centerX + 53333, centerY - 30131, centerY + 30131), zoom);
     
     }
