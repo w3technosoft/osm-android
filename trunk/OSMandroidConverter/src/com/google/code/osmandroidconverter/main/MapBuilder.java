@@ -32,6 +32,7 @@ public class MapBuilder {
 	public static HashMap<Long, OsmNode> 		nodeMap;
 	public static HashMap<String, City>  		cityMap;
 	public static HashMap<String, NameRecord> 	nameRecords;
+	public static BoundingBox 					mapRegion;
 	public static int nameRecordID = 0;
 	
 	private static final int MAX_TILE_DEPTH = 17;
@@ -45,6 +46,7 @@ public class MapBuilder {
 		nodeMap	 	= new HashMap<Long, OsmNode>();
 		osmElements = new LinkedList<OsmElement>();
 		nameRecords = new HashMap<String, NameRecord>();
+		mapRegion   = new BoundingBox();
 	}
 	
 	public void parseOsmFile(String filename){
@@ -432,6 +434,22 @@ public class MapBuilder {
 			throw new RuntimeException(e);
 		}
 		
+		do {
+			
+			//write the coordinates file
+			File file = new File(tilesDir + "/" + "coords");
+		    FileOutputStream file_output = new FileOutputStream (file);
+		    DataOutputStream data_out = new DataOutputStream (file_output);
+		    
+	    	data_out.writeInt(MapBuilder.mapRegion.minX);
+	    	data_out.writeInt(MapBuilder.mapRegion.maxX);
+	    	data_out.writeInt(MapBuilder.mapRegion.minY);
+	    	data_out.writeInt(MapBuilder.mapRegion.maxY);
+	
+	    	file_output.close();
+	    	
+		} while (false);
+		
 		Iterator it = tileMap.keySet().iterator();
 		while(it.hasNext()){
 
@@ -443,7 +461,7 @@ public class MapBuilder {
 			File file = new File(tilesDir + "/" + tile.getName());
 		    FileOutputStream file_output = new FileOutputStream (file);
 		    DataOutputStream data_out = new DataOutputStream (file_output);
-			
+
 			for (MapItem item: mapItems) {
 				
 				data_out.writeLong(item.id);
