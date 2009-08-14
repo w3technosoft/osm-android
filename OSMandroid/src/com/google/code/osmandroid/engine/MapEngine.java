@@ -164,4 +164,25 @@ public class MapEngine {
 		this.tileCache.clear();
 	}
 
+	public BoundingBox getMapArea() {
+		
+		BoundingBox box = new BoundingBox();
+		
+		try{
+			DataInputStream	in = new DataInputStream(new
+		            BufferedInputStream(new FileInputStream("/sdcard/osm_android_maps/coords")));
+		
+			box.minX = in.readInt();
+			box.maxX = in.readInt();
+			box.minY = in.readInt();
+			box.maxY = in.readInt();
+			
+			in.close();
+		}
+		catch (Exception e) {
+			
+		}
+		
+		return box;
+	}
 }

@@ -6,9 +6,6 @@
   android:layout_height="wrap_content">
 
 <com.google.code.osmandroid.view.OsmMapView 
-            app:centerX="204674492"
-            app:centerY="370908198"
-            app:zoom="10"
             android:id="@+id/osmmap"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"/>
