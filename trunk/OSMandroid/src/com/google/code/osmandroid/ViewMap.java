@@ -185,7 +185,6 @@ public class ViewMap extends Activity implements LocationListener {
 		this.locationManager.removeUpdates(this);
 	}
 	
-    @Override
     public void onLocationChanged(Location loc) {
     	
     	if (this.mapMode == MAP_MODE_NAVIGATE) {
@@ -194,13 +193,10 @@ public class ViewMap extends Activity implements LocationListener {
     	}   	
     }
 
-    @Override
     public void onProviderDisabled(String provider) {}
     
-    @Override
     public void onProviderEnabled(String provider) {}
     
-    @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {}
 
 	private void getPreferences() {

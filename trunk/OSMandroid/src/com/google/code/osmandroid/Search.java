@@ -11,7 +11,6 @@ import android.widget.EditText;
 public class Search  extends Activity {
 
 	
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         

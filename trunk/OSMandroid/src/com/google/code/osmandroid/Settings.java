@@ -27,7 +27,7 @@ public class Settings extends Activity implements RadioGroup.OnCheckedChangeList
 	private SharedPreferences appPreferences;
 	
 	//FIXME: should specify in the menu the file path, so that the user can change it
-	private static final String DB_FILE = "/sdcard/osm_names/names.txt";
+	private static final String DB_FILE = "/sdcard/osm_android/names/names.txt";
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
