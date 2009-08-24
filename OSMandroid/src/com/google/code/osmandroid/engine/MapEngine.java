@@ -43,7 +43,7 @@ public class MapEngine {
 		
 		this.tileCache = new Cache(TILE_CACHE_SIZE);
 		this.nameCache = new Cache(NAME_CACHE_SIZE);
-		this.map	   = new Map("Romania", "/sdcard/osm_android_maps");
+		this.map	   = new Map("Romania", "/sdcard/osm_android/maps");
 	} 
 	
 	public MapRect getMapRect(BoundingBox area, int zoom, boolean getNames) {
@@ -170,7 +170,7 @@ public class MapEngine {
 		
 		try{
 			DataInputStream	in = new DataInputStream(new
-		            BufferedInputStream(new FileInputStream("/sdcard/osm_android_maps/coords")));
+		            BufferedInputStream(new FileInputStream("/sdcard/osm_android/maps/coords")));
 		
 			box.minX = in.readInt();
 			box.maxX = in.readInt();
