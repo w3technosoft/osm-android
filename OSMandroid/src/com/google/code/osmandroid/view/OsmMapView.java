@@ -376,13 +376,7 @@ public class OsmMapView extends GLSurfaceView{
 
 	public void calculateRoute() {
 		
-		/*
-		 * Test (benchmark data)
-		this.route.setStartPoint(204676269, 370898494);
-		//this.route.setDestPoint(187142508, 373436777);
-		this.route.setDestPoint(176454510, 374199623);
-		 */
-		
+
 		mypd = ProgressDialog.show(this.getContext(),
 				      null,
 				      "Calculating route...",
