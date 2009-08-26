@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.ToggleButton;
 
 public class Settings extends Activity implements RadioGroup.OnCheckedChangeListener{
 
@@ -24,6 +25,7 @@ public class Settings extends Activity implements RadioGroup.OnCheckedChangeList
 	private RadioButton       routeShortestButton;
 	private RadioButton       routeFastestButton;
 	private Button            updateDbButton;
+	private ToggleButton	  recordTrackButton;
 	private SharedPreferences appPreferences;
 	
 	//FIXME: should specify in the menu the file path, so that the user can change it
@@ -39,8 +41,9 @@ public class Settings extends Activity implements RadioGroup.OnCheckedChangeList
 		this.routeFastestButton  = (RadioButton) findViewById(R.id.routeTypeFastest);
 		this.routeShortestButton = (RadioButton) findViewById(R.id.routeTypeShortest);
 		this.updateDbButton      = (Button)      findViewById(R.id.updateNameDatabase);
+		this.recordTrackButton   = (ToggleButton)findViewById(R.id.recordTrack);
 		
-		this.appPreferences 		= PreferenceManager.getDefaultSharedPreferences(this);
+		this.appPreferences 	 = PreferenceManager.getDefaultSharedPreferences(this);
 		
 		
 		this.updateDbButton.setOnClickListener(new View.OnClickListener(){
@@ -66,6 +69,29 @@ public class Settings extends Activity implements RadioGroup.OnCheckedChangeList
 		}
 		
 		this.routeTypeRadioGroup.setOnCheckedChangeListener(this);
+		
+		boolean record = this.appPreferences.getBoolean("record_track", false);
+		this.recordTrackButton.setChecked(record);
+	
+		
+		this.recordTrackButton.setOnClickListener(new View.OnClickListener() {
+
+			public void onClick(View v) {
+
+				SharedPreferences.Editor editor = appPreferences.edit();
+				
+		        if (recordTrackButton.isChecked()) {
+		        	
+		        	editor.putBoolean("record_track", true); 
+		        } else {
+		        	
+		        	editor.putBoolean("record_track", false);
+		        }
+		        
+		        editor.commit();
+		    }
+		});
+
 	}
 	
     public void onCheckedChanged(RadioGroup group, int checkedId) {

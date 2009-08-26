@@ -133,15 +133,12 @@ public class OsmContentHandler implements ContentHandler {
 		
 	}
 	
-	public void startBound(Attributes atts) {
+	public void startBounds(Attributes atts) {
 		
-		String box      = atts.getValue("box");
-		String[] coords = box.split(",");
-		
-		int minY = (int)((Mercator.mercY(Double.parseDouble(coords[0]))/1000) * 65536);
-		int minX = (int)((Mercator.mercX(Double.parseDouble(coords[1]))/1000) * 65536);
-		int maxY = (int)((Mercator.mercY(Double.parseDouble(coords[2]))/1000) * 65536);
-		int maxX = (int)((Mercator.mercX(Double.parseDouble(coords[3]))/1000) * 65536);
+		int minY = (int)((Mercator.mercY(Double.parseDouble(atts.getValue("minlat")))/1000) * 65536);
+		int minX = (int)((Mercator.mercX(Double.parseDouble(atts.getValue("minlon")))/1000) * 65536);
+		int maxY = (int)((Mercator.mercY(Double.parseDouble(atts.getValue("maxlat")))/1000) * 65536);
+		int maxX = (int)((Mercator.mercX(Double.parseDouble(atts.getValue("maxlon")))/1000) * 65536);
 		
 		MapBuilder.mapRegion.minX = minX;
 		MapBuilder.mapRegion.minY = minY;
@@ -167,8 +164,8 @@ public class OsmContentHandler implements ContentHandler {
 		else if (localName.equals("tag")) {
 			startTag(atts);
 		} 
-		else if (localName.equals("bound")) {
-			startBound(atts);
+		else if (localName.equals("bounds")) {
+			startBounds(atts);
 		}
 	}
 

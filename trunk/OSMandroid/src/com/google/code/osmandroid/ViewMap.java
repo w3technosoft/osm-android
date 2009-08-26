@@ -1,7 +1,11 @@
 package com.google.code.osmandroid;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import com.google.code.osmandroid.mapdata.BoundingBox;
 import com.google.code.osmandroid.routing.Route;
@@ -44,6 +48,12 @@ public class ViewMap extends Activity implements LocationListener {
 	private int mapMode;
 	private static final int MAP_MODE_NAVIGATE    = 1;
 	private static final int MAP_MODE_PLAN_ON_MAP = 2;
+	
+	
+	private boolean      recordTrack;
+	private String	     gpxLogFile;
+	private FileWriter   gpxLogWriter;
+	private final String gpx_dir = "/sdcard/osm_android/gpx";
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -134,12 +144,14 @@ public class ViewMap extends Activity implements LocationListener {
 		});
 		
 		getPreferences();
+
 		this.osmMapView.setRouteType(this.routeType);
 		setFocusPoint(getIntent().getExtras());
 		
+		this.gpxLogFile   = this.getNextGpxFilename();
+		this.gpxLogWriter = null;
 	}
 	
-
 	@Override
 	protected void onNewIntent(Intent intent) {
 		
@@ -191,6 +203,11 @@ public class ViewMap extends Activity implements LocationListener {
 
     		osmMapView.setCurrentGpsPosition(loc.getLongitude(), loc.getLatitude());
     	}   	
+    	
+    	if (this.recordTrack == true) {
+    	
+    		updateGpxTrack(loc.getLongitude(), loc.getLatitude(), loc.getAltitude());
+    	}
     }
 
     public void onProviderDisabled(String provider) {}
@@ -203,7 +220,124 @@ public class ViewMap extends Activity implements LocationListener {
 		
 		SharedPreferences app_preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		
-		this.routeType = app_preferences.getInt("route_type", Route.ROUTE_FASTEST);
+		this.routeType   = app_preferences.getInt("route_type", Route.ROUTE_FASTEST);
+		this.recordTrack = app_preferences.getBoolean("record_track", false); 
 	}
+	
+	private String getNextGpxFilename() {
+		
+		String prefix = "track-";
+		
+		File folder        = new File(this.gpx_dir);
+        File[] listOfFiles = folder.listFiles();
+        
+        int max_track_no = 1;
+        
+        if (listOfFiles == null)
+        	return prefix + String.valueOf(max_track_no);
+        
+        for (File file : listOfFiles) {
+        	
+        	if (!file.isFile()) {
+        		continue;
+        	}
+        	
+        	
+        	String tileName = file.getName();
+        	if (tileName.indexOf(prefix) == 0) {
+        		
+        		String suffix = tileName.substring(prefix.length(), tileName.length());
+        	
+        		try {
+        			int id = Integer.parseInt(suffix);
+        			if (id > max_track_no) {
+        				
+        				max_track_no = id;
+        			}
+        		}
+        		catch (Exception e) {
+        			continue;
+        		}
+        	}
+        }
+        
+		return prefix+String.valueOf(max_track_no);
+	}
+	
+	private void startGpxRecording(){
+		
+		String filename = this.getNextGpxFilename();
+		try {
+			
+			this.gpxLogWriter = new FileWriter(new File(this.gpx_dir + getNextGpxFilename()));
+			this.gpxLogWriter.write("start\n");
+		}
+		catch (IOException e) {
+			
+			this.recordTrack = false;
+			SharedPreferences appPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+			SharedPreferences.Editor editor = appPreferences.edit();
+			editor.putBoolean("record_track", false);
+			editor.commit();
+			
+			//TODO: notify user
+		}
+	}
+	
+	private void stopGpxRecording(){
+		
+		if (this.gpxLogWriter == null) {
+			return;
+		}
+		
+		try {
+			this.gpxLogWriter.write("stop\n");
+			this.gpxLogWriter.flush();
+			this.gpxLogWriter = null;
+		}
+		catch (IOException e) {
+			this.gpxLogWriter = null;
+		}
+	}
+	
+	private void updateGpxTrack(double lon, double lat, double alt){
+		
+		if (this.gpxLogWriter == null) {
+			return;
+		}
+		
+		try {
+						
+			this.gpxLogWriter.write("lon, lat");
+		}
+		catch (IOException e) {
+			
+		}
+		
+	}
+	/*
 
+	protected void onResume() {
+		
+		super.onResume();
+		
+		boolean prevState = this.recordTrack;
+		getPreferences();
+		if (prevState == true && this.recordTrack == false) {
+			//finalize gpx track
+		}
+		else if (prevState == false && this.recordTrack == true) {
+			//create gpx file
+		}
+	}
+	
+	protected void onDestroy() {
+		
+		super.onDestroy();
+		
+		if (this.recordTrack == true) {
+			//inalize gpx track
+		}
+	}
+	*/
 }

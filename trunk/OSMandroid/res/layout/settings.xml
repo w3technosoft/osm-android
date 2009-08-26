@@ -34,5 +34,11 @@
     </RadioGroup>
     
 
+      <ToggleButton android:id="@+id/recordTrack"
+         android:textOn="Record track: ON"
+         android:textOff="Record track: OFF"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content" />
+    
         
 </LinearLayout>
