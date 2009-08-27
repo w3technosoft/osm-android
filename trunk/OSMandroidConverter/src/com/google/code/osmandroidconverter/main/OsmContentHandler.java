@@ -133,7 +133,7 @@ public class OsmContentHandler implements ContentHandler {
 		
 	}
 	
-	public void startBounds(Attributes atts) {
+	public void startBound(Attributes atts) {
 		
 		int minY = (int)((Mercator.mercY(Double.parseDouble(atts.getValue("minlat")))/1000) * 65536);
 		int minX = (int)((Mercator.mercX(Double.parseDouble(atts.getValue("minlon")))/1000) * 65536);
