@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import com.google.code.osmandroid.mapdata.BoundingBox;
 import com.google.code.osmandroid.routing.Route;
@@ -20,6 +22,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.format.DateFormat;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -148,8 +151,11 @@ public class ViewMap extends Activity implements LocationListener {
 		this.osmMapView.setRouteType(this.routeType);
 		setFocusPoint(getIntent().getExtras());
 		
-		this.gpxLogFile   = this.getNextGpxFilename();
-		this.gpxLogWriter = null;
+		if (this.recordTrack == true) {
+			startGpxRecording();
+		}
+		
+	
 	}
 	
 	@Override
@@ -227,6 +233,7 @@ public class ViewMap extends Activity implements LocationListener {
 	private String getNextGpxFilename() {
 		
 		String prefix = "track-";
+		String extension = ".gpx";
 		
 		File folder        = new File(this.gpx_dir);
         File[] listOfFiles = folder.listFiles();
@@ -234,7 +241,7 @@ public class ViewMap extends Activity implements LocationListener {
         int max_track_no = 1;
         
         if (listOfFiles == null)
-        	return prefix + String.valueOf(max_track_no);
+        	return prefix + String.valueOf(++max_track_no) + extension;
         
         for (File file : listOfFiles) {
         	
@@ -246,7 +253,7 @@ public class ViewMap extends Activity implements LocationListener {
         	String tileName = file.getName();
         	if (tileName.indexOf(prefix) == 0) {
         		
-        		String suffix = tileName.substring(prefix.length(), tileName.length());
+        		String suffix = tileName.substring(prefix.length(), tileName.length()-extension.length());
         	
         		try {
         			int id = Integer.parseInt(suffix);
@@ -261,7 +268,7 @@ public class ViewMap extends Activity implements LocationListener {
         	}
         }
         
-		return prefix+String.valueOf(max_track_no);
+		return prefix+String.valueOf(++max_track_no) + extension;
 	}
 	
 	private void startGpxRecording(){
@@ -269,8 +276,8 @@ public class ViewMap extends Activity implements LocationListener {
 		String filename = this.getNextGpxFilename();
 		try {
 			
-			this.gpxLogWriter = new FileWriter(new File(this.gpx_dir + getNextGpxFilename()));
-			this.gpxLogWriter.write("start\n");
+			this.gpxLogWriter = new FileWriter(new File(this.gpx_dir + "/" + filename));
+			this.gpxLogWriter.write("<gpx>\n<trk>\n<desc>OsmAndroid track log</desc>\n<trkseg>");
 		}
 		catch (IOException e) {
 			
@@ -291,7 +298,7 @@ public class ViewMap extends Activity implements LocationListener {
 		}
 		
 		try {
-			this.gpxLogWriter.write("stop\n");
+			this.gpxLogWriter.write("</trkseg>\n</trk>\n</gpx>");
 			this.gpxLogWriter.flush();
 			this.gpxLogWriter = null;
 		}
@@ -307,15 +314,21 @@ public class ViewMap extends Activity implements LocationListener {
 		}
 		
 		try {
-						
-			this.gpxLogWriter.write("lon, lat");
+			
+			Date date=new Date();
+			SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat timeFormat=new SimpleDateFormat("hh:mm:ss");
+		
+			this.gpxLogWriter.write("<trkpt lat=\"" + String.valueOf(lat) + "\" lon=\"" + String.valueOf(lon) + "\">\n");
+			this.gpxLogWriter.write("<ele>"+ alt +"</ele>\n");
+			this.gpxLogWriter.write("<time>"+dateFormat.format(date)+"T"+timeFormat.format(date)+"Z</time>\n");
+			this.gpxLogWriter.write("</trkpt>\n");
 		}
 		catch (IOException e) {
 			
 		}
 		
 	}
-	/*
 
 	protected void onResume() {
 		
@@ -324,10 +337,10 @@ public class ViewMap extends Activity implements LocationListener {
 		boolean prevState = this.recordTrack;
 		getPreferences();
 		if (prevState == true && this.recordTrack == false) {
-			//finalize gpx track
+			stopGpxRecording();
 		}
 		else if (prevState == false && this.recordTrack == true) {
-			//create gpx file
+			startGpxRecording();
 		}
 	}
 	
@@ -336,8 +349,8 @@ public class ViewMap extends Activity implements LocationListener {
 		super.onDestroy();
 		
 		if (this.recordTrack == true) {
-			//inalize gpx track
+			stopGpxRecording();
 		}
 	}
-	*/
+	
 }
