@@ -135,20 +135,24 @@ public class OsmContentHandler implements ContentHandler {
 	
 	public void startBound(Attributes atts) {
 		
-		int minY = (int)((Mercator.mercY(Double.parseDouble(atts.getValue("minlat")))/1000) * 65536);
-		int minX = (int)((Mercator.mercX(Double.parseDouble(atts.getValue("minlon")))/1000) * 65536);
-		int maxY = (int)((Mercator.mercY(Double.parseDouble(atts.getValue("maxlat")))/1000) * 65536);
-		int maxX = (int)((Mercator.mercX(Double.parseDouble(atts.getValue("maxlon")))/1000) * 65536);
+		int minY, minX, maxX, maxY;
 		
-		if (minY == 0 && minX == 0 && maxY == 0 && maxX == 0) {
+		if (atts.getValue("minlat")!=null) {
+			minY = (int)((Mercator.mercY(Double.parseDouble(atts.getValue("minlat")))/1000) * 65536);
+			minX = (int)((Mercator.mercX(Double.parseDouble(atts.getValue("minlon")))/1000) * 65536);
+			maxY = (int)((Mercator.mercY(Double.parseDouble(atts.getValue("maxlat")))/1000) * 65536);
+			maxX = (int)((Mercator.mercX(Double.parseDouble(atts.getValue("maxlon")))/1000) * 65536);
+		}
+		
+		else {
 
-	                String box      = atts.getValue("box");
-        	        String[] coords = box.split(",");
+            String box      = atts.getValue("box");
+	        String[] coords = box.split(",");
 
-                	minY = (int)((Mercator.mercY(Double.parseDouble(coords[0]))/1000) * 65536);
-	                minX = (int)((Mercator.mercX(Double.parseDouble(coords[1]))/1000) * 65536);
-        	        maxY = (int)((Mercator.mercY(Double.parseDouble(coords[2]))/1000) * 65536);
-                	maxX = (int)((Mercator.mercX(Double.parseDouble(coords[3]))/1000) * 65536);
+        	minY = (int)((Mercator.mercY(Double.parseDouble(coords[0]))/1000) * 65536);
+            minX = (int)((Mercator.mercX(Double.parseDouble(coords[1]))/1000) * 65536);
+	        maxY = (int)((Mercator.mercY(Double.parseDouble(coords[2]))/1000) * 65536);
+        	maxX = (int)((Mercator.mercX(Double.parseDouble(coords[3]))/1000) * 65536);
 		}		
 
 		MapBuilder.mapRegion.minX = minX;
