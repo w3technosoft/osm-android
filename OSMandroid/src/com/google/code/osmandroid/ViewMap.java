@@ -151,6 +151,15 @@ public class ViewMap extends Activity implements LocationListener {
 		this.osmMapView.setRouteType(this.routeType);
 		setFocusPoint(getIntent().getExtras());
 		
+		File gpxLogsDir = new File(this.gpx_dir);
+		if (!gpxLogsDir.exists()) {
+			
+			boolean success = gpxLogsDir.mkdir();
+			if (!success) {
+				this.recordTrack = false;
+			}
+		}
+				
 		if (this.recordTrack == true) {
 			startGpxRecording();
 		}
@@ -272,6 +281,7 @@ public class ViewMap extends Activity implements LocationListener {
 	}
 	
 	private void startGpxRecording(){
+		
 		
 		String filename = this.getNextGpxFilename();
 		try {
