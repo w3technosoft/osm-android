@@ -3,10 +3,10 @@
 = Introduction =
 
 The OSM android application can be divided into several modules:
-1) The reading, storing and interpretation of the binary map data
-2) The map engine
-3) The rendering modules
-4) The rounting modules 
+  * The reading, storing and interpretation of the binary map data
+  * The map engine
+  * The rendering modules
+  * The rounting modules 
 
 
 = Details =
