@@ -20,6 +20,8 @@ The classes that belong to this modules are:
   * *MapTile* - represents a collection of map item that belong to a defined area
   * *MapPresets* - every map item is identified by a numeric constant, defined in this class
 
+[http://osm-android.googlecode.com/svn/wiki/binary_data_module-1.jpg]
+
 * The map engine
 
 This module handles the following tasks:
@@ -33,6 +35,7 @@ The classes that belong to this modules are:
   * *MapRect* - a map rectangle; a container for all map items that belong to this particular area
   * *MapEngine* - manages the caches, and the maps; it's most important task is accepting a Bounding Box and returning a MapRect object containing all the map items withing that region
 
+[http://osm-android.googlecode.com/svn/wiki/map_engine_module-1.jpg]
 
 * The rendering module
 
@@ -45,6 +48,7 @@ It's main classes are:
   * *GLTextures* - a helper class for managing textures
   * *LabelsTexture* - a object that represents a transparent bitmap (texture) on which street names and other text is drawn; at the end of the drawing process, this texture will be overlapped on the drawing producing the final image 
 
+[http://osm-android.googlecode.com/svn/wiki/render_module-1.jpg]
 
 * The routing module
 
@@ -61,3 +65,5 @@ The main classes of this module are:
   * *RoutePoint* - is the start/destination point; it can be positioned on a street or at a certain distance from a street
   * *ShortestPathAlgorithm* - the implementation of a shortest path algorithm in a weighted oriented graph (Diskstra's algorithm for now)
   * *Route* - the class that glues together all the other classes in this module; represents the interface with the outside world for the routing module 
+
+[http://osm-android.googlecode.com/svn/wiki/routing_module-1.jpg]
