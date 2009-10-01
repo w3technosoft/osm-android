@@ -1,0 +1,17 @@
+#summary OSM android design and functionality.
+
+= Introduction =
+
+The OSM android application can be divided into several modules:
+1) The reading, storing and interpretation of the binary map data
+2) The map engine
+3) The rendering modules
+4) The rounting modules 
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
