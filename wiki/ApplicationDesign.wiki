@@ -1,0 +1,34 @@
+#summary OSM android design and functionality.
+
+= Introduction =
+
+The OSM android application can be divided into several modules:
+  * The reading, storing and interpretation of the binary map data
+  * The map engine
+  * The rendering modules
+  * The rounting modules 
+
+
+= Details =
+
+* The reading, storing and interpretation of the binary map data 
+
+This module handles the reading of binary data, its interpretation and storing for future access
+
+The classes that belong to this modules are:
+  * *MapItem* - represents a single item from the map, like a street, a lake, a POI, etc
+  * *MapTile* - represents a collection of map item that belong to a defined area
+  * *MapPresets* - every map item is identified by a numeric constant, defined in this class
+
+* The map engine
+
+This modules handles the following tasks:
+# Manage a cache for the map tiles for fast future access
+# Selecting all the objects within a certain map region
+# Querying the database and extracting the names of the map items
+
+The classes that belong to this modules are:
+  * *CacheElement* - a generic implementation of a element within a cache
+  * *Cache* - the actual implementation of a caching algorithm
+  * *MapRect* - a map rectangle; a container for all map items that belong to this particular area
+  * *MapEngine* - manages the caches, and the maps; it's most important task is accepting a Bounding Box and returning a MapRect object containing all the map items withing that region
