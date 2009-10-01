@@ -23,9 +23,9 @@ The classes that belong to this modules are:
 * The map engine
 
 This modules handles the following tasks:
-# Manage a cache for the map tiles for fast future access
-# Selecting all the objects within a certain map region
-# Querying the database and extracting the names of the map items
+      * Manage a cache for the map tiles for fast future access
+      * Selecting all the objects within a certain map region
+      * Querying the database and extracting the names of the map items
 
 The classes that belong to this modules are:
   * *CacheElement* - a generic implementation of a element within a cache
