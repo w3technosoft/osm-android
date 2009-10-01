@@ -179,7 +179,7 @@ public class OsmContentHandler implements ContentHandler {
 		else if (localName.equals("tag")) {
 			startTag(atts);
 		} 
-		else if (localName.equals("bound")) {
+		else if (localName.equals("bound") || localName.equals("bounds")) {
 			startBound(atts);
 		}
 	}
