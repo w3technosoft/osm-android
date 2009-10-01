@@ -22,7 +22,7 @@ The classes that belong to this modules are:
 
 * The map engine
 
-This modules handles the following tasks:
+This module handles the following tasks:
       * Manage a cache for the map tiles for fast future access
       * Selecting all the objects within a certain map region
       * Querying the database and extracting the names of the map items
@@ -32,3 +32,15 @@ The classes that belong to this modules are:
   * *Cache* - the actual implementation of a caching algorithm
   * *MapRect* - a map rectangle; a container for all map items that belong to this particular area
   * *MapEngine* - manages the caches, and the maps; it's most important task is accepting a Bounding Box and returning a MapRect object containing all the map items withing that region
+
+
+* The rendering module
+
+This module has the task of rendering to screen all the objects from a given MapRect object (a rectangular map area)
+
+The drawing is performed using Android's OpenGL ES implementation.
+
+It's main classes are:
+  * *OsmMapRenderer* - the most important class in this modules; receives as input a MapRect objects and draws all the elements inside it
+  * *GLTextures* - a helper class for managing textures
+  * *LabelsTexture* - a object that represents a transparent bitmap (texture) on which street names and other text is drawn; at the end of the drawing process, this texture will be overlapped on the drawing producing the final image 
