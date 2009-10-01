@@ -503,7 +503,7 @@ public class MapBuilder {
 			while (it.hasNext()) {
 				
 				NameRecord nameRecord = (NameRecord)nameRecords.get(it.next());
-				
+				/*
 				nameRecord.name = nameRecord.name.replace('ş', 's');
 				nameRecord.name = nameRecord.name.replace('â', 'a');
 				nameRecord.name = nameRecord.name.replace('ţ', 't');
@@ -513,7 +513,7 @@ public class MapBuilder {
 				nameRecord.city = nameRecord.city.replace('â', 'a');
 				nameRecord.city = nameRecord.city.replace('ţ', 't');
 				nameRecord.city = nameRecord.city.replace('ă', 'a');
-				
+				*/
 				dataOut.write(nameRecord.id + "\n");
 				dataOut.write(nameRecord.name + "\n");
 				dataOut.write(nameRecord.city + "\n");
