@@ -1,5 +1,3 @@
-If you want to have the latest OSM-Android on your device you can follow the next steps:
-
 INSTALL NOTES
 ============================================
 There are two applications involed in OSMAndroid:
@@ -7,20 +5,20 @@ There are two applications involed in OSMAndroid:
   # OSMandroid - the actual navigation app designed to run on the Android platform 
 
 To be able to compile the application, you need to set up the Android Development
-environment at described in http://developer.android.com/sdk/1.5_r3/installing.html
+environment at described in http://developer.android.com/sdk/1.6_r1/index.html
 After that you should have Eclipse and the Android plug-in set up.
 
 Next step is to import the two projects into Eclipse.
 
 To convert a OSM map into a OSMandroid map, put the raw .osm file under 
 OSMandroidConverter/osmdata and modify the map file name under OsmConverter.java
-Run this project as a standard Java application. This should output two folders:
-  # osm_android_maps - the map's directory containing binary map tiles
-  # osm_names - directory containing street names and coordinates
+Run this project as a standard Java application. This should output the folders:
+  # osm_android/maps - the map's directory containing binary map tiles
+  # osm_android/names - directory containing street names and coordinates
 
-This two folders will need to be pushed into the Android phone/emulator under /sdcard;
+The osm_android folder will need to be pushed into the Android phone/emulator under /sdcard;
 the emulator must the started/ the phone must be connected to the host computer
-(e.g ./adb push ~/OSMandroidConverter/osm_names /sdcard/osm_names)
+(e.g ./adb push ~/OSMandroidConverter/osm_android /sdcard/osm_android)
 
 To run the OSMandroid application on the emulator, select the OSMandroid project and 
 run OSMandroid as an Android application. You'll whant to set additional command line
