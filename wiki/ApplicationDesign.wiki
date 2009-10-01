@@ -44,3 +44,20 @@ It's main classes are:
   * *OsmMapRenderer* - the most important class in this modules; receives as input a MapRect objects and draws all the elements inside it
   * *GLTextures* - a helper class for managing textures
   * *LabelsTexture* - a object that represents a transparent bitmap (texture) on which street names and other text is drawn; at the end of the drawing process, this texture will be overlapped on the drawing producing the final image 
+
+
+* The routing module
+
+The main task of this module is building a weighted graph and finding out the shortest (optimal) path between two points. 
+
+The graph is build from one or three MapRect items, depending on the distance between the terminal points: 
+   * if the distance is short, the graph will be generated from a single, high-detailed (all streets, e.g.: Service & Residential), MapRect item
+   * if the distance is long, the graph will be generated from three MapRect items with a different level of detail: the area between the start/destination point will be in high details, while the bounding box containing the two points will have a lower detail (up to Highway/Tertiary)
+
+The main classes of this module are:
+  * *GraphNode* - represents a vertex of the weighted, oriented graph
+  * *GraphEdge* - represents an edge of the weighted, oriented graph
+  * *DirectedGraph* - the actual routing graph
+  * *RoutePoint* - is the start/destination point; it can be positioned on a street or at a certain distance from a street
+  * *ShortestPathAlgorithm* - the implementation of a shortest path algorithm in a weighted oriented graph (Diskstra's algorithm for now)
+  * *Route* - the class that glues together all the other classes in this module; represents the interface with the outside world for the routing module 
