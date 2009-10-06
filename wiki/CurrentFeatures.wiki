@@ -13,7 +13,7 @@ This is a brief list of the features supported by osm-android
 
 Work to be done in the near future:
    * Add the possibility to save the current location as a POI (at least summary & coordinates)
-   * Add Points of Interest
+   * Display Points of Interests on the map
    * Improve the osm-converter, especially regarding memory usage
    * Speed up the rendering engine  
-   * Optimize the routing algorithm
+   * Optimize the routing algorithm (including routing restrictions)
