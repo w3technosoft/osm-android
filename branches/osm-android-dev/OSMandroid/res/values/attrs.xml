@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+     <declare-styleable name="OsmMapView">
+          <attr name="centerX" format="integer" />
+          <attr name="centerY" format="integer" />
+          <attr name="zoom" format="integer" />
+     </declare-styleable>
+</resources> 
